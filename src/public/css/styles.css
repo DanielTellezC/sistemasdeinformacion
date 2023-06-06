@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: #f0f0f0;
+}
+
+/* Estilos generales que se pueden aplicar casi en cualquier parte*/
+.justify-content-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex-direction-row{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+:root{
+    --orange-transparent: rgba(203, 102, 0, 0.361);
+    --orange-solid: rgb(203, 101, 0);
+}
+.input-text{
+    border-radius: 5px;
+    padding: 15px;
+    width: 70%;
+    border-bottom: 2px solid var(--orange-transparent);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: width 0.4s ease-in-out;
+}
+.input-text:focus{
+    width: 75%;
+    transition: 0.3s;
+    outline: none;
+    border-bottom: 3px solid var(--orange-solid);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.btn-submit{
+    padding: 13px 20px 13px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #ffff;
+    background-color: var(--orange-transparent);
+}
+.btn-submit:hover{
+    background-color: var(--orange-solid);
+}
+.w-100{
+    width: 100%;
+    height: 100%;
+}
+
+.box-shadow{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.morado{
+    background-color: blueviolet;
+}
+.rojo{
+    background-color: red;
+}
+.bg-white{
+    background-color: #ffffffff;
+}
+
+/* Estilos de Signin*/
+
+.container-signin{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.recuadro-signin{
+    width: 550px;
+    height: 700px;
+    background-color: rgba(71, 123, 69, 0.304);
+}
+
+.grid-logo-formulario{
+    display: grid;
+    grid-template-rows: 30%  70%;
+    gap: 10px;
+}
+
+.one {
+
+    grid-row: 1;
+}
+.two {
+
+    grid-row: 2;
+}
+.logo-signin img{
+    background-position: cover;
+    width: 50%;
+}
