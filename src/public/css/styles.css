@@ -7,6 +7,11 @@
 body{
     background-color: #f0f0f0;
 }
+.segmentacion{
+    width: 100%;
+    display: grid;
+    grid-template-rows: repeat(12, 1fr);
+}
 
 /* Estilos generales que se pueden aplicar casi en cualquier parte*/
 .justify-content-center{
@@ -21,8 +26,12 @@ body{
     align-items: center;
 }
 :root{
-    --orange-transparent: rgba(203, 102, 0, 0.361);
+    --orange-transparent: rgba(203, 101, 0, 0.5);
     --orange-solid: rgb(203, 101, 0);
+    --verde-olivo: rgba(71, 123, 69, 0.304);
+    --gris-shadow: rgb(40, 40, 40);
+    --gris-cuerpo-centrado: rgba(0, 0, 0, 0.15);
+    --white: rgb(255,255,255);
 }
 .input-text{
     border-radius: 5px;
@@ -44,14 +53,17 @@ body{
     border-right: none;
 }
 .btn-submit{
+    border: none;
     padding: 13px 20px 13px 20px;
     border-radius: 5px;
     text-decoration: none;
     color: #ffff;
-    background-color: var(--orange-transparent);
+    background-color: var(--orange-solid);
+    transition: 0.3s;
 }
 .btn-submit:hover{
-    background-color: var(--orange-solid);
+    background-color: var(--orange-transparent);
+    transition: 0.3s;
 }
 .w-100{
     width: 100%;
@@ -60,6 +72,9 @@ body{
 
 .box-shadow{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.box-shadow-tenue{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 15px;
 }
 .morado{
     background-color: blueviolet;
@@ -99,7 +114,148 @@ body{
 
     grid-row: 2;
 }
+
 .logo-signin img{
     background-position: cover;
     width: 50%;
+}
+
+
+/*Estilos para el navbar*/
+.segmentacion-12{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: auto;
+}
+.navbar{
+    grid-column: 1/13;
+    grid-row: 1;
+    background-color: var(--verde-olivo);
+    display: flex;
+    align-items: center;
+}
+.lista-navbar{
+    padding: 15px;
+    width: 100%;
+}
+.lista-navbar li{
+    list-style: none;
+    margin: auto;
+}
+.lista-navbar li a{
+    text-decoration: none;
+    font-size: medium;
+    color: var(--gris-shadow);
+}
+.lista-navbar li a:hover{
+    color: var(--orange-solid);
+}
+
+.lista-navbar li img{
+    width: 100px;
+}
+.logo-navbar{
+    grid-column: 1;
+}
+.items-navbar1{
+    grid-column: 10;
+    align-items: center;
+}
+.items-navbar2{
+    grid-column: 11;
+    align-items: center;
+}
+.items-navbar3{
+    grid-column: 12;
+    align-items: center;
+}
+/*Barra de redes sociales*/
+.redes-sociales{
+    grid-column: 1/13;
+    grid-row: 2;
+    background-color: var(--gris-shadow);
+}
+.modulo-lista-sociales{
+    margin: auto;
+    width: 60%;
+    padding: 4px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.lista-no-style{
+    list-style: none;
+    margin: auto;
+}
+.text-no-style{
+    transition: 0.3s;
+    position: relative;
+    text-decoration: none;
+    color: #ffffff;
+}
+.text-no-style:hover{
+    transition: 0.3s;
+    color: var(--orange-solid);
+}
+.imagen-bienvenida{
+    grid-column: 1/6;
+    grid-row: 3;
+    background-image: url('../images/fox-7405603_1920.png');
+    background-repeat: no-repeat;
+    width: auto;
+    height: 500px;
+    background-size: contain;
+}
+
+.texto-derecho{
+    grid-column: 7/12;
+    grid-row: 3;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+}
+.busqueda{
+    padding: 15px;
+    border-radius: 5px;
+    border-bottom: 2px solid var(--orange-solid);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 30%;
+    transition: width 0.4s ease-in-out;
+}
+  
+.busqueda:focus {
+    outline: none;
+    width: 90%;
+}
+.footer{
+    position: absolute;
+    bottom: 0;
+}
+
+/*Datos del perfil de usuario*/
+.cuerpo-centrado{
+    grid-column: 2/12;
+    grid-row: 2;
+    border-radius: 5px;
+    background-color: var(--white);
+}
+.imagen-profile{
+    grid-column: 1/5;
+    grid-row: 2;
+    display: flex;
+    justify-content: center;align-items: center;
+}
+.informacion-profile{
+    grid-column: 6/12;
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+}
+.informacion-profile h2 a{
+    text-decoration: none;
+    color: var(--orange-solid);
 }
