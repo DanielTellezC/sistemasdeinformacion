@@ -63,18 +63,47 @@ router.post("/agregar-articulo", isAuthenticated, async(req, res, next) => {
     res.redirect('agregar-articulo');
 });
 
-router.get('/borrar-articulo/:id', async(req,res,next) =>{
+router.get('/borrar-articulo/:id', isAuthenticated, async(req,res,next) =>{
     const { id } = req.params;
     console.log('Este es el que se borra:', req.body);
     await articulo.findByIdAndDelete(id, req.body);
     res.redirect('/inventario');
 });
+router.get("/edit-articulo/:id", isAuthenticated, async (req, res, next) => {
+    const Articulo = await articulo.findById(req.params.id).lean();
+    res.render("edit-articulo", { Articulo });
+});
 
+router.post("/edit-articulo/:id", async(req, res, next) =>{
+    const { id } = req.params;
+    console.log("id: aticislo: ",id);
+    console.log('Esta es lo que arroja', req.body);
+    await articulo.findByIdAndUpdate(id, req.body);
+    res.redirect('/inventario');
+});
 
 //agregar producto al inventario
 router.get("/agregar-articulo", isAuthenticated, (req, res, next) =>{
     res.render("agregar-articulo")
 });
+
+// Sucursales
+
+router.get("/sucursal", (req, res, next) => {
+    res.render('sucursal');
+});
+
+router.get("/agregar-sucursal", (req,res,next) => {
+    res.render("agregar-sucursal");
+});
+
+router.post("/agregar-sucursal", isAuthenticated, async(req, res, next) => {
+    const Sucursalnueva = sucursal(req.body);
+    const save_sucursal = await Sucursalnueva.save();
+    console.log(save_sucursal);
+    res.redirect('sucursal');
+});
+
 
 // Cerrar sesión
 router.get('/logout', isAuthenticated, function(req, res, next){
