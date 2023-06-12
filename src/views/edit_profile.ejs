@@ -1,0 +1,53 @@
+<%- include('layouts/main.ejs') %>
+
+<div class="cuerpo-centrado box-shadow-tenue">
+    <form class="segmentacion-12 gap-10p " action="/edit_profile/<%=User._id%>" method="post">
+            <div class="n-0">
+                <h2>Actualizar datos de usuario</h2>
+            </div>
+        
+            <div class="n-1">
+                <label for="name">Nombre del usuario: </label>
+                <input id="name" class="input-text" type="text" name="name" value="<%= User.name %>" required>
+            </div>
+            
+            <div class="n-2">
+                <label for="email">Email:</label>
+                <input id="email" class="input-text" type="text" name="email" value="<%= User.email %>" required>
+            </div>
+
+            <div class="n-3">
+                <label for="phonenumber">Teléfono:</label>
+                <input id="phonenumber" class="input-text" type="text" name="phonenumber" value="<%= User.phonenumber %>" required>
+            </div>
+
+            <div class="n-4">
+                <label for="Sucursal">Sucursal:</label>
+                <input class="input-text" type="text" name="sucursal" value="<%= User.sucursal %>" required>
+            </div>
+
+            <div class="n-5">
+                <label for="puesto">Puesto:</label>
+                <% if (User.puesto === "Administrador") {%>
+                    <input readonly class="input-text" type="text" name="puesto" value="<%= User.puesto %>" required>
+                <% } else {%>
+                    <input class="input-text" type="text" name="puesto" value="<%= User.puesto %>" required>
+                <% } %>
+            </div>
+            <div class="n-6">
+                <button class="btn-submit" type="submit">Actualizar</button>
+            </div>
+        
+            <!-- 
+            <input class="input-text" type="text" name="name" value="<%= User.name %>">
+            <input class="input-text" type="text" name="email" value="<%= User.email %>">
+            <input class="input-text" type="text" name="phonenumber" value="<%= User.phonenumber %>">
+            <input class="input-text" type="text" name="sucursal" value="<%= User.sucursal %>">
+            <input class="input-text" type="text" name="Puesto" value="<%= User.puesto %>">-->
+        
+    </form>
+</div>
+
+
+
+<%- include('layouts/footer.ejs') %>

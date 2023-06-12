@@ -16,19 +16,11 @@ const inventarioSchema = new Schema({
         trim: true
     },
     cantidad: {
-        type: String,
-        require: true,
-        unique: false,
-        trim: true
+        type: Intl,
+        require: true
     },
     sucursal: {
         type: String,
-        require: true,
-        unique: false,
-        trim: true
-    },
-    fecha: {
-        type: Date,
         require: true,
         unique: false,
         trim: true

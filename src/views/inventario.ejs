@@ -1,0 +1,33 @@
+<%- include('layouts/main.ejs') %>
+
+<div class="cuerpo-centrado box-shadow-tenue segmentacion-12">
+    <h1 class="titulo-inventario">Inventario</h1>
+    <a class="redireccion agregar" href="/agregar-articulo">Agregar</a>
+    <div class="seccion-tabla segmentacion-12">
+
+            <table class="tabla-inventario box-shadow-tenue">
+                <tr class="titulo-tabla">
+                    <td>Nombre</td>
+                    <td>Cantidad</td>
+                    <td>Descripción</td>
+                    <td>Sucursal</td>
+                    <td></td>
+                </tr>
+                <% Articulo.forEach(function(articulo){ %>
+                <tr class="cuerpo-tabla">
+                    <td><%=articulo.nombre%></td>
+                    <td><%=articulo.cantidad%></td>
+                    <td><%=articulo.descripcion%></td>
+                    <td><%=articulo.sucursal%></td>
+                    <td>
+                        <a href=""><i class="fi fi-rr-pencil"></i></a>
+                        <a href="/borrar-articulo/<%= articulo._id %>"><i class="fi fi-rr-trash"></i></a>
+                    </td>
+                </tr>
+                <% }); %> 
+              </table>     
+       
+    </div>
+</div>
+
+<%- include('layouts/footer.ejs') %>

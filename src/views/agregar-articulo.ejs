@@ -1,0 +1,29 @@
+<%- include('layouts/main.ejs') %>
+<div class="segmentacion-12 cuerpo-centrado box-shadow-tenue">
+
+    <form class="form-inventario" action="/agregar-articulo" method="post">
+        <h2>Agregar nuevo producto al inventario</h2>
+        <div>
+            <label for="">Nombre</label>
+            <input class="input-text" type="text" name="nombre" id="" placeholder="Nombre" required>
+        </div>
+        
+        <div>
+            <label for="">Sucursal</label>
+            <input class="input-text" type="text" name="sucursal" id="" placeholder="Ejemplo: Yuriria" required>
+        </div>
+        <div>
+            <label for="">Cantidad</label>
+            <input class="input-text" min="0" type="number" name="cantidad" id="" placeholder="1,2,3..." required>
+        </div>
+        <div>
+            <label for="">Descripción</label>
+            <textarea class="textarea-text" name="descripcion" id="" cols="50" rows="7" placeholder="Descripcion breve del producto" required></textarea>
+        </div>
+        <!--btn-submit -->
+        <div>
+            <button class="btn-submit">Agregar</button>
+        </div>
+    </form>
+</div>
+<%- include('layouts/footer.ejs') %>

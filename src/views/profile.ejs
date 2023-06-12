@@ -1,20 +1,19 @@
 <%- include('layouts/main.ejs') %>
-<div class="segmentacion-12">
-    <div class="cuerpo-centrado box-shadow-tenue">
-        <div class="contenedor-informacion segmentacion-12">
-            <div class="imagen-profile">
-                <img src="images/logo_small_icon_only.png" alt="">
-            </div>
-           <div class="informacion-profile">
-                <h2><%= user.name %> <a href=""><i class="fi fi-br-user-pen"></i></a></h2>
-                <h3><%= user.email %></h3>
-                <h4><%= user.phonenumber %></h4>
-                <h4><%= user.sucursal %></h4>
-                <h4><%= user.puesto %></h4>
-           </div>
+<div class="cuerpo-centrado box-shadow-tenue">
+    <div class="contenedor-informacion segmentacion-12">
+        <div class="imagen-profile">
+            <img src="images/logo_small_icon_only.png" alt="">
+        </div>
+        <div class="informacion-profile">
+            <h2><%= user.name %> <a href="/edit_profile/<%=user._id%>"><i class="fi fi-br-user-pen"></i></a></h2>
+            <h3><%= user.email %></h3>
+            <h4><%= user.phonenumber %></h4>
+            <h4><%= user.sucursal %></h4>
+            <h4><%= user.puesto %></h4>
         </div>
     </div>
-    
 </div>
+
+
 
 <%- include('layouts/footer.ejs') %>
