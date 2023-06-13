@@ -1,0 +1,48 @@
+<%- include('layouts/main.ejs') %>
+<div class="segmentacion-12 cuerpo-centrado box-shadow-tenue">
+
+    <form class="form-inventario" action="/agregar-articulo" method="post">
+        <h2>Crear guia para cliente</h2>
+        <div>
+            <label for="">Cliente que envía</label>
+            <input class="input-text" type="text" name="clienteenvia" id="" placeholder="Nombre" required>
+        </div>
+        <div>
+            <label for="">Cliente que recibe</label>
+            <input class="input-text" type="text" name="clienterecibe" id="" placeholder="Nombre" required>
+        </div>
+        <div>
+            <label for="">Lugar de envío</label>
+            <select class="input-text" name="lugardeenvio">
+                <% Sucursal.forEach(function(sucursal) { %>
+                    <option><%= sucursal.nombre%> </option>
+                <% }); %>
+    
+            </select>
+        </div>
+        <div>
+            <label for="">Lugar de destino</label>
+            <select class="input-text" name="lugardedestino">
+                <% Sucursal.forEach(function(sucursal) { %>
+                    <option><%= sucursal.nombre%> </option>
+                <% }); %>
+    
+            </select>   
+        </div>
+        <div>
+            <label for="">Número de guía</label>
+            <input class="input-text" type="number" id="randomNumberInput" readonly>
+            <img id="codigo"/>
+            <button type="button" onclick="generateRandomNumber()">generar guía</button>
+        </div>
+
+        <!--btn-submit -->
+        <div>
+            <button type="submit" class="btn-submit">crear</button>
+        </div>
+    </form>
+</div>
+
+<script src="/javaScript/generador.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+<%- include('layouts/footer.ejs') %>

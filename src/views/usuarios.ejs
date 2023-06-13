@@ -1,0 +1,35 @@
+<%- include('layouts/main.ejs') %>
+
+<div class="cuerpo-centrado box-shadow-tenue segmentacion-12">
+    <h1 class="titulo-inventario">Inventario</h1>
+    <a class="redireccion agregar" href="/signup">Agregar</a>
+    <div class="seccion-tabla segmentacion-12">
+
+            <table class="tabla-inventario box-shadow-tenue">
+                <tr class="titulo-tabla">
+                    <td>Nombre</td>
+                    <td>Email</td>
+                    <td>Teléfono</td>
+                    <td>Sucursal</td>
+                    <td>Puesto</td>
+                    <td></td>
+                </tr>
+                <% User.forEach(function(user){ %>
+                <tr class="cuerpo-tabla">
+                    <td><%=user.name%></td>
+                    <td><%=user.email%></td>
+                    <td><%=user.phonenumber%></td>
+                    <td><%=user.sucursal%></td>
+                    <td><%=user.puesto%></td>
+                    <td>
+                        <a href="/editar-usuario/<%= user._id %>"><i class="fi fi-rr-pencil"></i></a>
+                        <a href="/borrar-usuario/<%= user._id %>"><i class="fi fi-rr-trash"></i></a>
+                    </td>
+                </tr>
+                <% }); %> 
+              </table>     
+       
+    </div>
+</div>
+
+<%- include('layouts/footer.ejs') %>

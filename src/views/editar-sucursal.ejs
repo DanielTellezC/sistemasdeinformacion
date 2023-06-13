@@ -1,0 +1,26 @@
+<%- include('layouts/main.ejs') %>
+<div class="segmentacion-12 cuerpo-centrado box-shadow-tenue">
+
+    <form class="form-inventario" action="/editar-sucursal/<%=Sucursal._id%>" method="post">
+        <h2>Editar Sucursal</h2>
+        <div>
+            <label for="">Nombre</label>
+            <input value="<%= Sucursal.nombre %>" class="input-text" type="text" name="nombre" id="" placeholder="Nombre" required>
+        </div>
+        
+        <div>
+            <label for="">Ciudad</label>
+            <input value="<%= Sucursal.ciudad %>"  class="input-text" type="text" name="ciudad" id="" placeholder="Ejemplo: Yuriria" required>
+        </div>
+        <div>
+            <label for="">direccion</label>
+            <input value="<%= Sucursal.direccion %>"  class="input-text" min="0" type="text" name="direccion" id="" placeholder="Calle y número" required>
+        </div>
+
+        <!--btn-submit -->
+        <div>
+            <button class="btn-submit" type="submit">Agregar</button>
+        </div>
+    </form>
+</div>
+<%- include('layouts/footer.ejs') %>

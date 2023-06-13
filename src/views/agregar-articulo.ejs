@@ -10,7 +10,13 @@
         
         <div>
             <label for="">Sucursal</label>
-            <input class="input-text" type="text" name="sucursal" id="" placeholder="Ejemplo: Yuriria" required>
+            <select class="input-text" name="sucursal">
+                <% Sucursal.forEach(function(sucursal) { %>
+                    <option><%= sucursal.nombre%> </option>
+                <% }); %>
+    
+            </select>
+            
         </div>
         <div>
             <label for="">Cantidad</label>
