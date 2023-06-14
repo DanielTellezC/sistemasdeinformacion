@@ -10,8 +10,9 @@ const router = Router()
 
 
 
-router.get('/', (req, res, next) => {
-    res.render('index');
+router.get('/', async(req, res, next) => {
+    const Sucursal = await sucursal.find();
+    res.render('index', {Sucursal});
 });
 // Registro de los usuarios
 router.get('/signup', isAuthenticated ,async(req, res, next)=>{

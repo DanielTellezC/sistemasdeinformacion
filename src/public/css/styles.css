@@ -336,7 +336,7 @@ body{
 .footer{
     grid-row: 10;
     background-color: var(--gris-shadow);
-    height: 100px;
+    height: fit-content;
     grid-column: 1/13;
 
 }

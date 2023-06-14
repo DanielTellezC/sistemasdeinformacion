@@ -9,14 +9,25 @@
 </section>
 
 
-<h1 class="n-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti neque 
-    eligendi, vel repudiandae, molestiae autem asperiores beatae aliquam q
-    uisquam necessitatibus rem quasi facilis, rerum nesciunt cupiditate alias maxime mollitia earum.</h1>
-    <h1 class="n-5">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, sint pariatur! Quas provident,
-         reprehenderit
-         excepturi dicta optio repellat nihil et velit quis, vero vel rem, libero delectus a corrupti magnam!
-    </h1>
+<div class="segmentacion-12 n-4">
+
+    <table class="tabla-inventario box-shadow-tenue">
+        <tr class="titulo-tabla">
+            <td>Nombre</td>
+            <td>Ciudad</td>
+            <td>Dirección</td>
+    
+        </tr>
+        <% Sucursal.forEach(function(sucursal){ %>
+        <tr class="cuerpo-tabla">
+            <td><%=sucursal.nombre%></td>
+            <td><%=sucursal.ciudad%></td>
+            <td><%=sucursal.direccion%></td>
+        </tr>
+        <% }); %> 
+      </table>     
+
+</div>
 
     <script src="/javaScript/generador.js"></script>
 <%- include('layouts/footer.ejs') %>
