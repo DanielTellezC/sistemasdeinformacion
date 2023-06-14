@@ -23,16 +23,24 @@
 
             <div class="n-4">
                 <label for="Sucursal">Sucursal:</label>
-                <input class="input-text" type="text" name="sucursal" value="<%= User.sucursal %>" required>
+                <select class="input-text" name="sucursal" required seleted="<%= User.sucursal %>">
+                    <% Sucursal.forEach(function(sucursal) { %>
+                        <option><%= sucursal.nombre%> </option>
+                    <% }); %>
+        
+                </select>
+                
             </div>
 
             <div class="n-5">
                 <label for="puesto">Puesto:</label>
-                <% if (User.puesto === "Administrador") {%>
-                    <input readonly class="input-text" type="text" name="puesto" value="<%= User.puesto %>" required>
-                <% } else {%>
-                    <input class="input-text" type="text" name="puesto" value="<%= User.puesto %>" required>
-                <% } %>
+
+                <select class="input-text" name="puesto" required>
+                    <% Puesto.forEach(function(puesto) { %>
+                        <option><%= puesto.nombre%> </option>
+                    <% }); %>
+        
+                </select>
             </div>
             <div class="n-6">
                 <button class="btn-submit" type="submit">Actualizar</button>

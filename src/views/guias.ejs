@@ -1,8 +1,8 @@
 <%- include('layouts/main.ejs') %>
 <div class="segmentacion-12 cuerpo-centrado box-shadow-tenue">
 
-    <form class="form-inventario" action="/agregar-articulo" method="post">
-        <h2>Crear guia para cliente</h2>
+    <form class="form-inventario" action="/crear-guia" method="post">
+        <h2>Crear guía para cliente</h2>
         <div>
             <label for="">Cliente que envía</label>
             <input class="input-text" type="text" name="clienteenvia" id="" placeholder="Nombre" required>
@@ -22,7 +22,7 @@
         </div>
         <div>
             <label for="">Lugar de destino</label>
-            <select class="input-text" name="lugardedestino">
+            <select class="input-text" name="lugardestino">
                 <% Sucursal.forEach(function(sucursal) { %>
                     <option><%= sucursal.nombre%> </option>
                 <% }); %>
@@ -31,14 +31,14 @@
         </div>
         <div>
             <label for="">Número de guía</label>
-            <input class="input-text" type="number" id="randomNumberInput" readonly>
+            <input name="numeroguia" class="input-text" type="number" id="randomNumberInput" readonly>
             <img id="codigo"/>
             <button type="button" onclick="generateRandomNumber()">generar guía</button>
         </div>
 
         <!--btn-submit -->
         <div>
-            <button type="submit" class="btn-submit">crear</button>
+            <button type="submit" class="btn-submit">Crear</button>
         </div>
     </form>
 </div>

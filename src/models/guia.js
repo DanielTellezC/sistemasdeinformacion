@@ -28,21 +28,23 @@ const guiaSchema = new Schema({
         trim: true
     },
     numeroguia:{
-        type: String,
+        type: Intl,
         require: true,
         unique: false,
         trim: true
     },
     codigobarras:{
-        type: INT,
+        type: String,
         require: true,
         unique: false,
         trim: true
     },
-    cuenta:[{
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-    }]
+    estado:{
+        type: String,
+        require: true,
+        unique: false,
+        trim: true
+    }
 },
     {
         timestamps: true,

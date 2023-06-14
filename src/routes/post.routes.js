@@ -3,18 +3,24 @@ const user = require('../models/user');
 const passport = require('passport');
 const articulo = require('../models/inventario')
 const sucursal = require('../models/sucursal');
+const guia = require('../models/guia');
+const puesto = require('../models/puesto');
 
 const router = Router()
+
+
 
 router.get('/', (req, res, next) => {
     res.render('index');
 });
 // Registro de los usuarios
-router.get('/signup', (req, res, next)=>{
-    res.render('signup');
+router.get('/signup', isAuthenticated ,async(req, res, next)=>{
+    const Puesto = await puesto.find();
+    const Sucursal = await sucursal.find();
+    res.render('signup', { Sucursal, Puesto });
 });
 
-router.post('/signup', passport.authenticate('local-signup',{
+router.post('/signup', isAuthenticated ,passport.authenticate('local-signup',{
     successRedirect: '/profile',
     failureRedirect: '/signup',
     passReqToCallback: true
@@ -39,8 +45,10 @@ router.get('/profile', isAuthenticated, async (req, res, next) => {
 
 /* Editar la información del usuario */
 router.get("/edit_profile/:id", isAuthenticated, async(req, res, next) =>{
+    const Puesto = await puesto.find();
     const User = await user.findById(req.params.id).lean();
-    res.render("edit_profile", { User });
+    const Sucursal = await sucursal.find();
+    res.render("edit_profile", { User,Sucursal, Puesto });
     
 });
 router.post("/edit_profile/:id", isAuthenticated, async(req, res, next) =>{
@@ -61,7 +69,7 @@ router.post("/agregar-articulo", isAuthenticated, async(req, res, next) => {
     articulonuevo.cuenta = user;
     const save_articulo = await articulonuevo.save();
     console.log(save_articulo);
-    res.redirect('agregar-articulo');
+    res.redirect('/inventario');
 });
 
 router.get('/borrar-articulo/:id', isAuthenticated, async(req,res,next) =>{
@@ -76,7 +84,7 @@ router.get("/edit-articulo/:id", isAuthenticated, async (req, res, next) => {
     res.render("edit-articulo", { Articulo, Sucursal});
 });
 
-router.post("/edit-articulo/:id", async(req, res, next) =>{
+router.post("/edit-articulo/:id", isAuthenticated,async(req, res, next) =>{
     const { id } = req.params;
     console.log("id: aticislo: ",id);
     console.log('Esta es lo que arroja', req.body);
@@ -92,12 +100,12 @@ router.get("/agregar-articulo", isAuthenticated, async(req, res, next) =>{
 
 // Sucursales
 
-router.get("/sucursal", async(req, res, next) => {
+router.get("/sucursal", isAuthenticated, async(req, res, next) => {
     const Sucursal = await sucursal.find();
     res.render('sucursal', { Sucursal });
 });
 
-router.get("/agregar-sucursal", (req,res,next) => {
+router.get("/agregar-sucursal", isAuthenticated,(req,res,next) => {
     res.render("agregar-sucursal");
 });
 
@@ -120,7 +128,7 @@ router.get("/editar-sucursal/:id", isAuthenticated, async (req, res, next) => {
     res.render("editar-sucursal", { Sucursal });
 });
 
-router.post("/editar-sucursal/:id", async(req, res, next) =>{
+router.post("/editar-sucursal/:id", isAuthenticated ,async(req, res, next) =>{
     const { id } = req.params;
     console.log("id: aticislo: ",id);
     console.log('Esta es lo que arroja', req.body);
@@ -135,7 +143,8 @@ router.get('/usuarios', isAuthenticated, async(req, res, next) => {
 
 router.get('/editar-usuario/:id', isAuthenticated, async(req, res, next) => {
     const User = await user.findById(req.params.id).lean();
-    res.render("editar-usuario", { User });
+    const Sucursal = await sucursal.find();
+    res.render("editar-usuario", { User, Sucursal });
 });
 router.post("/editar-usuario/:id", isAuthenticated, async(req, res, next) =>{
     const { id } = req.params;
@@ -147,12 +156,40 @@ router.get("/guias", isAuthenticated, async(req, res, next) => {
     const Sucursal = await sucursal.find();
     res.render("guias", { Sucursal});
 });
+
+router.post("/crear-guia", isAuthenticated, async(req, res, next) => {
+    const guiaNueva = guia(req.body);
+    guiaNueva.estado = "Paquete depositado recientemente, se encuentra en sucursal de envío: " + req.body.lugardeenvio;
+    const save_guia = await guiaNueva.save();
+    console.log(save_guia);
+    res.redirect('/guias');
+});
+// visualiza el estado de la guia
+router.get("/estado-guia/:id", async(req, res, next) => {
+    const Guia = await guia.findOne({numeroguia:req.params.id});
+    res.render("ver-estado", { Guia });
+});
 // Cerrar sesión
 router.get('/logout', isAuthenticated, function(req, res, next){
     req.logout(function(err){
         if(err) { return next(err); }
         res.redirect('/');
     });
+});
+
+router.get("/escanear-guias", isAuthenticated, async (req, res, next) => {
+    res.render('escanear-guias')
+});
+
+router.post("/escanear-guias/:id", isAuthenticated, async (req, res, next) => {
+
+    const guiaNueva = await guia.findOne({numeroguia:req.params.id});
+    guiaNueva.estado = "El paquete se encuentra en: " + req.user.sucursal;
+    const { id } = guiaNueva;
+    console.log("id: ",id);
+    console.log("guia: ",guiaNueva)
+    await guia.findByIdAndUpdate(id, guiaNueva);
+    res.redirect('/escanear-guias');
 });
 // Función que checa si el usuario está autenticado
 function isAuthenticated(req, res, next){

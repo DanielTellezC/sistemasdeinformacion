@@ -23,6 +23,12 @@
 
             <div class="n-4">
                 <label for="Sucursal">Sucursal:</label>
+                <select class="input-text" name="sucursal" required seleted="<%= User.sucursal %>">
+                    <% Sucursal.forEach(function(sucursal) { %>
+                        <option><%= sucursal.nombre%> </option>
+                    <% }); %>
+        
+                </select>
                 <input class="input-text" type="text" name="sucursal" value="<%= User.sucursal %>" required>
             </div>
 

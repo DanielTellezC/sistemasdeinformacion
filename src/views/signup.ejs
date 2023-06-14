@@ -20,8 +20,20 @@
                     <input name="password" class="input-text" type="password" placeholder="Contraseña" required>
                     <input name="name" class="input-text" type="text" placeholder="Nombre" required>
                     <input name="phonenumber" class="input-text" type="text" placeholder="Número de Teléfono" required>
-                    <input name="sucursal" class="input-text" type="text" placeholder="Sucursal" required>
-                    <input name="puesto" class="input-text" type="text" placeholder="Puesto" required>
+                    <label for="">Lugar de envío</label>
+                    <select class="input-text" name="sucursal" required>
+                        <% Sucursal.forEach(function(sucursal) { %>
+                            <option><%= sucursal.nombre%> </option>
+                        <% }); %>
+            
+                    </select>
+                    <label for="">Puesto</label>
+                    <select class="input-text" aria-placeholder="Puesto" name="puesto" required>
+                        <% Puesto.forEach(function(puesto) { %>
+                            <option><%= puesto.nombre%> </option>
+                        <% }); %>
+            
+                    </select>
                     <button type="submit" href="" class="btn-submit">Registrar nuevo usuario</button>
             
                 </form>

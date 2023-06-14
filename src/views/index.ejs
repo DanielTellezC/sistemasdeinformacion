@@ -4,8 +4,8 @@
 
 </section>
 <section class="texto-derecho">
-    <input type="text" class="busqueda" placeholder="Número de guía">
-    <a href="" class="btn-submit">Rastrear</a>
+    <input type="text" class="busqueda" id="rastreo" name="guianum" placeholder="Número de guía">
+    <a href="" id="direccion" onclick="mostrarguia()" class="btn-submit">Rastrear</a>
 </section>
 
 
@@ -17,4 +17,6 @@
          reprehenderit
          excepturi dicta optio repellat nihil et velit quis, vero vel rem, libero delectus a corrupti magnam!
     </h1>
+
+    <script src="/javaScript/generador.js"></script>
 <%- include('layouts/footer.ejs') %>
