@@ -1,0 +1,48 @@
+<%- include('layouts/main.ejs') %>
+
+<div class="cuerpo-centrado box-shadow-tenue segmentacion-12">
+    <h1 class="titulo-inventario">Ventas totales por dia</h1>
+    <div class="agregar">
+
+    </div>
+    <div class="seccion-tabla segmentacion-12">
+
+            <table class="tabla-inventario box-shadow-tenue">
+                <tr class="titulo-tabla">
+                    <td>No. Guía</td>
+                    <td>Envío</td>
+                    <td>Destino</td>
+                    <td>Entregado</td>
+                    <td>Costo</td>
+                    <td>total</td>
+                </tr>
+                <% Ventas.forEach(function(venta){ %>
+                <tr class="cuerpo-tabla">
+                    <td><%=venta.numeroguia%></td>
+                    <td><%=venta.lugardeenvio%></td>
+                    <td><%=venta.lugardestino%></td>
+                    <td>
+                        <%if(venta.entregado){%> 
+                            Entregado
+                        <%}%>
+                        <%if(!venta.entregado) {%> 
+                            Por Entregar
+                        <%}%>
+                    </td>
+                    <td><%=venta.costo%>MXN</td>
+                    <td></td>
+                       
+                </tr>
+                <% }); %> 
+                <tr class="cuerpo-tabla"><td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= sum %></td></tr>
+              </table>     
+       
+    </div>
+</div>
+
+<%- include('layouts/footer.ejs') %>

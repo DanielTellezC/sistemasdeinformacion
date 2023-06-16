@@ -5,6 +5,9 @@ const articulo = require('../models/inventario')
 const sucursal = require('../models/sucursal');
 const guia = require('../models/guia');
 const puesto = require('../models/puesto');
+const venta = require('../models/ventas');
+const ventadiaria = require('../models/ventadiaria');
+const { parse } = require("path");
 
 const router = Router()
 
@@ -57,6 +60,11 @@ router.post("/edit_profile/:id", isAuthenticated, async(req, res, next) =>{
     console.log('Esta es lo que arroja', req.body);
     await user.findByIdAndUpdate(id, req.body);
     res.redirect('/profile');
+});
+router.get('/borrar-usuario/:id', isAuthenticated, async(req,res,next) =>{
+    const { id } = req.params;
+    await user.findByIdAndDelete(id, req.body);
+    res.redirect('/usuarios');
 });
 // Vista del inventario y agregar un producto
 router.get("/inventario", isAuthenticated, async (req, res, next) =>{
@@ -160,10 +168,27 @@ router.get("/guias", isAuthenticated, async(req, res, next) => {
 
 router.post("/crear-guia", isAuthenticated, async(req, res, next) => {
     const guiaNueva = guia(req.body);
-    guiaNueva.estado = "Paquete depositado recientemente, se encuentra en sucursal de envío: " + req.body.lugardeenvio;
-    const save_guia = await guiaNueva.save();
-    console.log(save_guia);
-    res.redirect('/guias');
+    const Venta = venta();
+    //const Ventadiaria = ventadiaria();
+    
+    guiaNueva.costo = parseInt(guiaNueva.costo);
+    Venta.lugardeenvio = guiaNueva.lugardeenvio;
+    Venta.lugardestino = guiaNueva.lugardestino;
+    Venta.numeroguia = guiaNueva.numeroguia;
+    Venta.costo = parseInt(guiaNueva.costo);
+    //Ventadiaria.costo = parseInt(guiaNueva.costo);
+    Venta.cuenta = req.user.id;
+    //Ventadiaria.cuenta = req.user.id;
+    guiaNueva.estate.push("Paquete depositado recientemente, se encuentra en sucursal de envío: " + req.body.lugardeenvio);
+    guiaNueva.entregado = false;
+    Venta.entregado = guiaNueva.entregado;
+    console.log("diaria: ", Ventadiaria);
+    console.log("hoy:", Venta);
+    console.log("guia nueva: ", guiaNueva);
+    //await Ventadiaria.save();
+    await Venta.save();
+    await guiaNueva.save();
+    res.redirect('/venta/'+Venta._id);
 });
 // visualiza el estado de la guia
 router.get("/estado-guia/:id", async(req, res, next) => {
@@ -183,14 +208,54 @@ router.get("/escanear-guias", isAuthenticated, async (req, res, next) => {
 });
 
 router.post("/escanear-guias/:id", isAuthenticated, async (req, res, next) => {
-
     const guiaNueva = await guia.findOne({numeroguia:req.params.id});
-    guiaNueva.estado = "El paquete se encuentra en: " + req.user.sucursal;
-    const { id } = guiaNueva;
-    console.log("id: ",id);
-    console.log("guia: ",guiaNueva)
-    await guia.findByIdAndUpdate(id, guiaNueva);
-    res.redirect('/escanear-guias');
+
+    if (!guiaNueva.entregado && guiaNueva.lugardeenvio == req.user.sucursal)
+    {
+        res.redirect('/escanear-guias');
+    }
+    if (!guiaNueva.entregado && guiaNueva.lugardestino != req.user.sucursal)
+    {
+        guiaNueva.estate.push("El paquete se encuentra en: " + req.user.sucursal+ " y sigue en camino");
+        const { id } = guiaNueva;
+        console.log("id: ",id);
+        console.log("guia: ",guiaNueva)
+        await guia.findByIdAndUpdate(id, guiaNueva);
+        res.redirect('/escanear-guias');
+    }
+    else if (!guiaNueva.entregado && guiaNueva.lugardestino == req.user.sucursal)
+    {
+        guiaNueva.estate.push("El paquete está en la sucursal de destino, listo para entregar en:" + req.user.sucursal);
+        guiaNueva.entregado = true;
+        const { id } = guiaNueva;
+        console.log("id: ",id);
+        console.log("guia: ",guiaNueva)
+        await guia.findByIdAndUpdate(id, guiaNueva);
+        res.redirect('/escanear-guias');
+    }
+    else if (guiaNueva.entregado)
+    {
+        res.redirect('/escanear-guias');
+    }
+});
+
+//Venta de la guía
+router.get('/venta/:id', isAuthenticated, async(req, res, next) => {
+    const Venta = await venta.findById(req.params.id).lean();
+    res.render("venta", { Venta });
+});
+
+router.get('/ventas-user', isAuthenticated, async (req, res, next) => {
+    const Ventas = await venta.find({ cuenta:req.user.id });
+    const Ventadiaria = await ventadiaria.find({ cuenta:req.user.id });
+    let sum = 0;
+    Ventadiaria.forEach(Venta => { 
+        if(Venta.createdAt.getDate() && Venta.createdAt.getMonth()){
+                   sum = Venta.costo + sum;
+        }
+
+    });    
+    res.render('ventasuser', {sum, Ventas})
 });
 // Función que checa si el usuario está autenticado
 function isAuthenticated(req, res, next){

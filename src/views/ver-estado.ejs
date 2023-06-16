@@ -5,7 +5,26 @@
             <img src="/images/logo_small_icon_only.png" alt="">
         </div>
         <div class="informacion-profile">
-            <h1 class="info-guia"><%= Guia.estado%></h1>
+            <div class="segmentacion-12 n-4">
+
+                <table class="tabla-inventario box-shadow-tenue">
+                    <tr class="titulo-tabla">
+                        <td>Estado del paquete</td>
+                
+                    </tr>
+                    <% Guia.estate.map((guia)=>{ %>
+                    <tr class="cuerpo-tabla">
+                        <td><%= guia %></td>
+                  
+                    </tr>
+                    <% }); %> 
+                  </table>     
+            
+            </div>
+            <p class="info-guia">
+              
+
+            </p>
         </div>
     </div>
 </div>

@@ -1,0 +1,38 @@
+<%- include('layouts/main.ejs') %>
+
+<div class="cuerpo-centrado box-shadow-tenue segmentacion-12">
+    <h1 class="titulo-inventario">Venta</h1>
+    <a class="redireccion agregar" href="/guias">Atrás</a>
+    <div class="seccion-tabla segmentacion-12">
+
+            <table class="tabla-inventario box-shadow-tenue">
+                <tr class="titulo-tabla">
+                    <td>No. Guía</td>
+                    <td>Envío</td>
+                    <td>Destino</td>
+                    <td>Entregado</td>
+                    <td>Costo</td>
+                </tr>
+           
+                <tr class="cuerpo-tabla">
+                    <td><%=Venta.numeroguia%></td>
+                    <td><%=Venta.lugardeenvio%></td>
+                    <td><%=Venta.lugardestino%></td>
+                    <td>
+                        <%if(Venta.entregado){%> 
+                            Entregado
+                        <%}%>
+                        <%if(!Venta.entregado) {%> 
+                            Por Entregar
+                        <%}%>
+                    </td>
+                    <td><%=Venta.costo%>MXN</td>
+                    
+                </tr>
+        
+              </table>     
+       
+    </div>
+</div>
+
+<%- include('layouts/footer.ejs') %>

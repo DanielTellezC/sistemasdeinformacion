@@ -2,19 +2,7 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const guiaSchema = new Schema({
-    clienteenvia:{
-        type: String,
-        require: true,
-        unique: false,
-        trim: true 
-    },
-    clienterecibe:{
-        type: String,
-        require: true,
-        unique: false,
-        trim: true
-    },
+const ventaSchema = new Schema({
     lugardeenvio:{
         type: String,
         require: true,
@@ -33,23 +21,6 @@ const guiaSchema = new Schema({
         unique: false,
         trim: true
     },
-    codigobarras:{
-        type: String,
-        require: true,
-        unique: false,
-        trim: true
-    },
-    estado:{
-        type: String,
-        require: true,
-        unique: false,
-        trim: true
-    },
-    estate: {
-        type: Array,
-        require: true,
-        unique: false
-    },
     entregado: {
         type: Boolean,
         require: true, 
@@ -60,6 +31,10 @@ const guiaSchema = new Schema({
         require: true,
         unique: false
     },
+    cuenta:[{
+        type: Schema.Types.ObjectId,
+        ref: 'sucursales'
+    }]
 },
     {
         timestamps: true,
@@ -67,4 +42,4 @@ const guiaSchema = new Schema({
     }
 );
 
-module.exports = mongoose.model('guias', guiaSchema)
+module.exports = mongoose.model('ventas', ventaSchema);
